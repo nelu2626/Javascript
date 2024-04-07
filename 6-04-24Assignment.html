@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Info</title>
+</head>
+
+    <style>
+    #left-align {
+        text-align: left;
+        margin-left: 1200px;
+        color: black;
+        border: 2px solid black;
+        width: 60px;
+        height: 30px;
+    }
+    </style>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: greenyellow; height: 50px;" align="center">
+        <div class="container-md d-flex justify-content-center align-items-center h-100">
+          <a class="navbar-brand text-center text-white"><b style="font-weight: bolder; font-size: larger;">POKEMON'S WORLD</b></a>
+        </div>
+      </nav> <br> <br>
+    <table border="5px groove black" width="350px" height="600px" style="margin-left: 390px; box-shadow:0px,5px,5px; background-image: radial-gradient(skyblue,pink);">
+        <tr>
+            <th align="left">POKEMON NAME</th><th align="left">POKEMON ID</th><TH align="left">POKEMON WEIGHT</TH><TH align="left">POKEMON IMAGE</TH>
+        </tr>
+        <tr>
+            <td><input class="pokemonname" type="text"/></td>
+            <td><input class="idpoki" type="text"/></td>
+            <td><input class="weight" type="text"/></td>
+            <td><img class="pokemonsprite" src="" width="150px" height="100px" /></td>
+        </tr>
+        <tr>
+            <td><input class="pokemonname" type="text"/></td>
+            <td><input class="idpoki" type="text"/></td>
+            <td><input class="weight" type="text"/></td>
+            <td><img class="pokemonsprite" src="" width="150px" height="100px" /></td>
+        </tr>
+        <tr>
+            <td><input class="pokemonname" type="text"/></td>
+            <td><input class="idpoki" type="text"/></td>
+            <td><input class="weight" type="text"/></td>
+            <td><img class="pokemonsprite" src="" width="150px" height="100px" /></td>
+        </tr>
+        <tr>
+            <td><input class="pokemonname" type="text"/></td>
+            <td><input class="idpoki" type="text"/></td>
+            <td><input class="weight" type="text"/></td>
+            <td><img class="pokemonsprite" src="" width="150px" height="100px" /></td>
+        </tr>
+        <tr>
+            <td><input class="pokemonname" type="text"/></td>
+            <td><input class="idpoki" type="text"/></td>
+            <td><input class="weight" type="text"/></td>
+            <td><img class="pokemonsprite" src="" width="150px" height="100px" /></td>
+        </tr>
+    </table> 
+
+    <button onclick="fetchData()" id="left-align">Search </button>
+
+    <script>
+        async function fetchData() {
+            try {
+                const pokemonNames = document.querySelectorAll('.pokemonname');
+                const pokemonsprites = document.querySelectorAll('.pokemonsprite');
+                const idpokis = document.querySelectorAll('.idpoki');
+                const weights = document.querySelectorAll('.weight');
+
+
+                for (let i = 0; i < pokemonNames.length; i++) {
+                    const pokemonname = pokemonNames[i].value;
+                    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonname}`);
+                    if (!response.ok) {
+                        throw new Error("Could not fetch");
+                    }
+
+                    const data = await response.json();
+                    const pokemonsprite = data.sprites.front_default;
+                    const idpoki = data.id;
+                    const weight = data.weight;
+
+                    pokemonsprites[i].src = pokemonsprite;
+                    idpokis[i].value = idpoki;
+                    weights[i].value = weight;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
